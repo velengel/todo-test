@@ -1,34 +1,34 @@
 <script>
-let id = 0
+let id = 0;
 const statusArray = ["todo", "doing", "done"];
 
 export default {
-  emits: ['syncTodos'],
+  emits: ["syncTodos"],
   props: {
-    todos: Array
+    todos: Array,
   },
   data() {
     return {
-      newTodo: '',
+      newTodo: "",
       hideCompleted: false,
       childTodos: [],
-      statusArray: statusArray
-    }
+      statusArray: statusArray,
+    };
   },
   mounted() {
-    this.childTodos = this.todos
-    console.log(this.childTodos)
+    this.childTodos = this.todos;
+    console.log(this.childTodos);
   },
   watch: {
-    syncTodos(childTodos){
-      this.$emit('syncTodos',this.childTodos)
-      console.log(this.todos)
-    }
+    syncTodos(childTodos) {
+      this.$emit("syncTodos", this.childTodos);
+      console.log(this.todos);
+    },
   },
   computed: {
     filteredTodos() {
-      return this.childTodos.filter((t) => t.statusNum == 0)
-    }
+      return this.childTodos.filter((t) => t.statusNum == 2);
+    },
   },
   methods: {
     addTodo() {
@@ -50,15 +50,15 @@ export default {
     regressTodo(todo) {
       if (todo.statusNum > 0) todo.statusNum--;
       else todo.statusNum = 0;
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <template>
   <form @submit.prevent="addTodo">
-    <input v-model="newTodo">
-    <button>Add Todo</button>
+    <input v-model="newTodo" />
+    <button>Add Done</button>
   </form>
   <ul>
     <li v-for="todo in filteredTodos" :key="todo.id">

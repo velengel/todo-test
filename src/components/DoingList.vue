@@ -27,7 +27,7 @@ export default {
   },
   computed: {
     filteredTodos() {
-      return this.childTodos.filter((t) => t.statusNum == 0);
+      return this.childTodos.filter((t) => t.statusNum == 1);
     },
   },
   methods: {
@@ -58,7 +58,7 @@ export default {
 <template>
   <form @submit.prevent="addTodo">
     <input v-model="newTodo" />
-    <button>Add Todo</button>
+    <button>Add Doing</button>
   </form>
   <ul>
     <li v-for="todo in filteredTodos" :key="todo.id">

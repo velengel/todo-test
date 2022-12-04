@@ -1,9 +1,14 @@
 <script>
 import TodoList from "./TodoList.vue";
+import DoingList from "./DoingList.vue";
+import DoneList from "./DoneList.vue";
+
 let id = 0;
 export default {
   components: {
     TodoList,
+    DoingList,
+    DoneList,
   },
   data() {
     return {
@@ -19,6 +24,14 @@ export default {
 
 <template>
   <TodoList
+    :todos="todos"
+    @syncTodos="(changedTodos) => (todos = changedTodos)"
+  />
+  <DoingList
+    :todos="todos"
+    @syncTodos="(changedTodos) => (todos = changedTodos)"
+  />
+  <DoneList
     :todos="todos"
     @syncTodos="(changedTodos) => (todos = changedTodos)"
   />

@@ -1,5 +1,11 @@
-<script setup lang="ts">
+<script>
 import ThreeLists from "../components/ThreeLists.vue";
+
+export default {
+  components: {
+    ThreeLists,
+  },
+};
 </script>
 
 <template>
