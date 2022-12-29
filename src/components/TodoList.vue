@@ -62,7 +62,8 @@ export default {
   </form>
   <ul>
     <li v-for="todo in filteredTodos" :key="todo.id">
-      <button @click="regressTodo(todo)">&lt;</button>&nbsp;
+      <!-- <button @click="regressTodo(todo)">&lt;</button>&nbsp; -->
+      <v-btn prepend-icon="mdi-vuetify" variant="outlined">&lt;</v-btn>
       <span :class="{ done: todo.done }">{{ todo.text }}</span>
       <span :class="status">&nbsp;|&nbsp;{{ statusArray[todo.statusNum] }}</span
       >&nbsp; <button @click="removeTodo(todo)">X</button>&nbsp;
