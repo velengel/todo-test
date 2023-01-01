@@ -1,17 +1,26 @@
-<script>
-let id = 0;
-const statusArray = ["todo", "doing", "done"];
+<script lang="ts">
+import { defineComponent } from 'vue';
 
-export default {
+let id: number = 0;
+const statusArray: string[] = ["todo", "doing", "done"];
+
+interface Todo {
+  id: number;
+  text: string;
+  done: boolean;
+  statusNum: number;
+}
+
+export default defineComponent({
   emits: ["syncTodos"],
   props: {
-    todos: Array,
+    todos: [] as Todo[],
   },
   data() {
     return {
-      newTodo: "",
+      newTodo: "" as string,
       hideCompleted: false,
-      childTodos: [],
+      childTodos: [] as Todo[],
       statusArray: statusArray,
     };
   },
@@ -20,18 +29,18 @@ export default {
     console.log(this.childTodos);
   },
   watch: {
-    syncTodos(childTodos) {
+    syncTodos(childTodos): void {
       this.$emit("syncTodos", this.childTodos);
       console.log(this.todos);
     },
   },
   computed: {
-    filteredTodos() {
-      return this.childTodos.filter((t) => t.statusNum == 0);
+    filteredTodos(): Todo[] {
+      return this.childTodos.filter((t: Todo) => t.statusNum == 0);
     },
   },
   methods: {
-    addTodo() {
+    addTodo(): void {
       this.childTodos.push({
         id: id++,
         text: this.newTodo,
@@ -40,19 +49,19 @@ export default {
       });
       this.newTodo = "";
     },
-    removeTodo(todo) {
-      this.childTodos = this.childTodos.filter((t) => t !== todo);
+    removeTodo(todo: Todo): void {
+      this.childTodos = this.childTodos.filter((t: Todo) => t !== todo);
     },
-    progressTodo(todo) {
+    progressTodo(todo: Todo): void {
       if (todo.statusNum < 2) todo.statusNum++;
       else todo.statusNum = 2;
     },
-    regressTodo(todo) {
+    regressTodo(todo: Todo): void {
       if (todo.statusNum > 0) todo.statusNum--;
       else todo.statusNum = 0;
     },
   },
-};
+});
 </script>
 
 <template>
@@ -67,7 +76,7 @@ export default {
       <span :class="{ done: todo.done }">{{ todo.text }}</span>
       <span :class="status">&nbsp;|&nbsp;{{ statusArray[todo.statusNum] }}</span
       >&nbsp; <button @click="removeTodo(todo)">X</button>&nbsp;
-      <button @click="progressTodo(todo)">&gt;</button>
+      <button @click="{{ progressTodo(todo) }}">&gt;</button>
     </li>
   </ul>
 </template>
