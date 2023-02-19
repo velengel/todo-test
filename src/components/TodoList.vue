@@ -73,26 +73,18 @@ const regressTodo = (todo: Todo): void => {
   <ul>
     <li v-for="todo in filteredTodos" :key="todo.id">
       <!-- <button @click="regressTodo(todo)">&lt;</button>&nbsp; -->
-      <v-btn 
+      <v-btn
         prepend-icon="mdi-vuetify"
         variant="outlined"
         @click="regressTodo(todo)"
-        >&lt;</v-btn>
+        >&lt;</v-btn
+      >
       <span :class="{ done: todo.done }">{{ todo.text }}</span>
-      <span>&nbsp;|&nbsp;{{ statusArray[todo.statusNum] }}</span>&nbsp;
+      <span>&nbsp;|&nbsp;{{ statusArray[todo.statusNum] }}</span
+      >&nbsp;
       <button @click="removeTodo(todo)">X</button>
       &nbsp;
-      <button
-        @click="
-          {
-            {
-              progressTodo(todo);
-            }
-          }
-        "
-      >
-        &gt;
-      </button>
+      <button @click="progressTodo(todo)">&gt;</button>
     </li>
   </ul>
 </template>
