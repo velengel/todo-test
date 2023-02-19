@@ -1,9 +1,16 @@
 <script setup lang="ts">
 import { computed, ref, onMounted, watch } from "vue";
-import { Todo } from "./types/global";
+import { Todo } from "./common/types";
+import { statusArray } from "./common/constants";
+import {
+  addTodo,
+  removeTodo,
+  progressTodo,
+  regressTodo,
+} from "./common/methods";
+import { newTodo, childTodos, props, emits } from "./common/data";
 
 let id: number = 0;
-const statusArray: string[] = ["todo", "doing", "done"];
 
 // interface Todo {
 //   id: number;
@@ -11,17 +18,6 @@ const statusArray: string[] = ["todo", "doing", "done"];
 //   done: boolean;
 //   statusNum: number;
 // }
-
-interface Props {
-  todos: Todo[];
-}
-
-// data
-const newTodo = ref<string>("");
-const childTodos = ref([] as Todo[]);
-
-const props = defineProps<Props>();
-const emits = defineEmits(["syncTodos"]);
 
 // mounted
 onMounted(() => {
@@ -41,29 +37,29 @@ const filteredTodos = computed(() =>
 );
 
 // methods
-const addTodo = (): void => {
-  childTodos.value.push({
-    id: id++,
-    text: newTodo.value,
-    done: false,
-    statusNum: 0,
-  });
-  newTodo.value = "";
-};
+// const addTodo = (): void => {
+//   childTodos.value.push({
+//     id: id++,
+//     text: newTodo.value,
+//     done: false,
+//     statusNum: 0,
+//   });
+//   newTodo.value = "";
+// };
 
-const removeTodo = (todo: Todo): void => {
-  childTodos.value = childTodos.value.filter((t: Todo) => t !== todo);
-};
+// const removeTodo = (todo: Todo): void => {
+//   childTodos.value = childTodos.value.filter((t: Todo) => t !== todo);
+// };
 
-const progressTodo = (todo: Todo): void => {
-  if (todo.statusNum < 2) todo.statusNum++;
-  else todo.statusNum = 2;
-};
+// const progressTodo = (todo: Todo): void => {
+//   if (todo.statusNum < 2) todo.statusNum++;
+//   else todo.statusNum = 2;
+// };
 
-const regressTodo = (todo: Todo): void => {
-  if (todo.statusNum > 0) todo.statusNum--;
-  else todo.statusNum = 0;
-};
+// const regressTodo = (todo: Todo): void => {
+//   if (todo.statusNum > 0) todo.statusNum--;
+//   else todo.statusNum = 0;
+// };
 </script>
 
 <template>

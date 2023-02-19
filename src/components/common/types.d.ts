@@ -4,3 +4,7 @@ export interface Todo {
   done: boolean;
   statusNum: number;
 }
+
+export interface Props {
+  todos: Todo[];
+}
