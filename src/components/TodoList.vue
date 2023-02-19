@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import { computed, ref, onMounted, watch } from "vue";
+import { Todo } from "./types/global";
 
 let id: number = 0;
 const statusArray: string[] = ["todo", "doing", "done"];
 
-interface Todo {
-  id: number;
-  text: string;
-  done: boolean;
-  statusNum: number;
-}
+// interface Todo {
+//   id: number;
+//   text: string;
+//   done: boolean;
+//   statusNum: number;
+// }
 
 interface Props {
   todos: Todo[];
