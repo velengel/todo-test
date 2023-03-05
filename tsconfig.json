@@ -18,5 +18,6 @@
     "allowJs": true,
     "isolatedModules": true,
     "strict": true,
+    "incremental": true
   },
 }

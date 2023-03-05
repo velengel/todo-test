@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, ref, onMounted, watch } from "vue";
-import { Todo } from "./common/types";
+import { computed, onMounted, watch } from "vue";
+import type { Todo } from "./common/types";
 import { statusArray } from "./common/constants";
 import {
   addTodo,
@@ -8,9 +8,14 @@ import {
   progressTodo,
   regressTodo,
 } from "./common/methods";
-import { newTodo, childTodos, props, emits } from "./common/data";
+import { newTodo, childTodos } from "./common/data";
 
-let id: number = 0;
+export interface Props {
+  todos: Todo[];
+}
+
+const props = defineProps<Props>();
+const emits = defineEmits(["syncTodos"]);
 
 // interface Todo {
 //   id: number;

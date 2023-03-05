@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, onMounted, watch } from "vue";
+import { computed, onMounted, watch } from "vue";
 import { Todo } from "./common/types";
 import { statusArray } from "./common/constants";
 import {
@@ -8,9 +8,15 @@ import {
   progressTodo,
   regressTodo,
 } from "./common/methods";
-import { newTodo, childTodos, props, emits } from "./common/data";
+import { newTodo, childTodos } from "./common/data";
 
-let id: number = 0;
+// 構文の制限: https://ja.vuejs.org/guide/typescript/composition-api.html#typing-component-props
+export interface Props {
+  todos: Todo[];
+}
+
+const props = defineProps<Props>();
+const emits = defineEmits(["syncTodos"]);
 
 // mounted
 onMounted(() => {
@@ -28,7 +34,6 @@ watch(childTodos, (newChildTodos) => {
 const filteredTodos = computed(() =>
   childTodos.value.filter((t: Todo) => t.statusNum == 2)
 );
-
 
 // let id = 0;
 // const statusArray = ["todo", "doing", "done"];
@@ -95,7 +100,7 @@ const filteredTodos = computed(() =>
     <li v-for="todo in filteredTodos" :key="todo.id">
       <button @click="regressTodo(todo)">&lt;</button>&nbsp;
       <span :class="{ done: todo.done }">{{ todo.text }}</span>
-      <span >&nbsp;|&nbsp;{{ statusArray[todo.statusNum] }}</span
+      <span>&nbsp;|&nbsp;{{ statusArray[todo.statusNum] }}</span
       >&nbsp; <button @click="removeTodo(todo)">X</button>&nbsp;
       <button @click="progressTodo(todo)">&gt;</button>
     </li>

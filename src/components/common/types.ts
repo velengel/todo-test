@@ -5,6 +5,6 @@ export interface Todo {
   statusNum: number;
 }
 
-export interface Props {
-  todos: Todo[];
-}
+// export interface Props {
+//   todos: Todo[];
+// }

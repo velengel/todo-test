@@ -1,3 +1,8 @@
+import type { Todo } from "./types";
+import { childTodos, newTodo } from "./data";
+
+let id: number = 0;
+
 export const addTodo = (): void => {
   childTodos.value.push({
     id: id++,
