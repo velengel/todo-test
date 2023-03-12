@@ -1,17 +1,5 @@
 import type { Todo } from "./types";
-import { childTodos, newTodo } from "./data";
-
-let id: number = 0;
-
-export const addTodo = (): void => {
-  childTodos.value.push({
-    id: id++,
-    text: newTodo.value,
-    done: false,
-    status: "todo",
-  });
-  newTodo.value = "";
-};
+import { childTodos } from "./data";
 
 export const removeTodo = (todo: Todo): void => {
   childTodos.value = childTodos.value.filter((t: Todo) => t !== todo);
