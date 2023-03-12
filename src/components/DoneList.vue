@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, watch } from "vue";
-import { Todo } from "./common/types";
+import type { Todo } from "./common/types";
 import { statusArray } from "./common/constants";
 import {
   addTodo,

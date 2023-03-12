@@ -4,7 +4,7 @@ import DoingList from "./DoingList.vue";
 import DoneList from "./DoneList.vue";
 
 //TODO: tsconfig.jsonのpathsに書けそう
-import { Todo } from "./types/global";
+import type { Todo } from "./common/types";
 
 import { ref } from "vue";
 
