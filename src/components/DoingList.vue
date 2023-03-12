@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import { computed, onMounted, watch } from "vue";
+import { computed, onMounted, watch, ref } from "vue";
 import type { Todo } from "./common/types";
 import {
-  addTodo,
   removeTodo,
   progressTodo,
   regressTodo,
 } from "./common/methods";
-import { newTodo, childTodos } from "./common/data";
+import { childTodos } from "./common/data";
 
 // 構文の制限: https://ja.vuejs.org/guide/typescript/composition-api.html#typing-component-props
 export interface Props {
@@ -33,10 +32,6 @@ const filteredTodos = computed(() =>
 </script>
 
 <template>
-  <form @submit.prevent="addTodo">
-    <input v-model="newTodo" />
-    <button>Add Doing</button>
-  </form>
   <ul>
     <li v-for="todo in filteredTodos" :key="todo.id">
       <button @click="regressTodo(todo)">&lt;</button>&nbsp;
@@ -60,6 +55,6 @@ ul {
 
 span.status {
   display: block;
-  margin-left: 110px;
+  /* display: inline-block; */
 }
 </style>

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 import ThreeLists from "../components/ThreeLists.vue";
 
 export default {
