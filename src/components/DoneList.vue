@@ -1,58 +1,35 @@
-<script>
-let id = 0;
-const statusArray = ["todo", "doing", "done"];
+<script setup lang="ts">
+import { computed, onMounted, watch } from "vue";
+import type { Todo } from "./common/types";
+import {
+  addTodo,
+  removeTodo,
+  progressTodo,
+  regressTodo,
+} from "./common/methods";
+import { newTodo, childTodos } from "./common/data";
 
-export default {
-  emits: ["syncTodos"],
-  props: {
-    todos: Array,
-  },
-  data() {
-    return {
-      newTodo: "",
-      hideCompleted: false,
-      childTodos: [],
-      statusArray: statusArray,
-    };
-  },
-  mounted() {
-    this.childTodos = this.todos;
-    console.log(this.childTodos);
-  },
-  watch: {
-    syncTodos(childTodos) {
-      this.$emit("syncTodos", this.childTodos);
-      console.log(this.todos);
-    },
-  },
-  computed: {
-    filteredTodos() {
-      return this.childTodos.filter((t) => t.statusNum == 2);
-    },
-  },
-  methods: {
-    addTodo() {
-      this.childTodos.push({
-        id: id++,
-        text: this.newTodo,
-        done: false,
-        statusNum: 0,
-      });
-      this.newTodo = "";
-    },
-    removeTodo(todo) {
-      this.childTodos = this.childTodos.filter((t) => t !== todo);
-    },
-    progressTodo(todo) {
-      if (todo.statusNum < 2) todo.statusNum++;
-      else todo.statusNum = 2;
-    },
-    regressTodo(todo) {
-      if (todo.statusNum > 0) todo.statusNum--;
-      else todo.statusNum = 0;
-    },
-  },
-};
+// 構文の制限: https://ja.vuejs.org/guide/typescript/composition-api.html#typing-component-props
+export interface Props {
+  todos: Todo[];
+}
+
+const props = defineProps<Props>();
+const emits = defineEmits(["syncTodos"]);
+
+onMounted(() => {
+  childTodos.value = props.todos;
+  console.log(childTodos);
+});
+
+watch(childTodos, (newChildTodos) => {
+  emits("syncTodos", newChildTodos);
+  console.log(newChildTodos);
+});
+
+const filteredTodos = computed(() =>
+  childTodos.value.filter((t: Todo) => t.status == "done")
+);
 </script>
 
 <template>
@@ -64,7 +41,8 @@ export default {
     <li v-for="todo in filteredTodos" :key="todo.id">
       <button @click="regressTodo(todo)">&lt;</button>&nbsp;
       <span :class="{ done: todo.done }">{{ todo.text }}</span>
-      <span :class="status">&nbsp;|&nbsp;{{ statusArray[todo.statusNum] }}</span
+      <span :class="{ status: todo.status }"
+        >&nbsp;|&nbsp;{{ todo.status }}</span
       >&nbsp; <button @click="removeTodo(todo)">X</button>&nbsp;
       <button @click="progressTodo(todo)">&gt;</button>
     </li>

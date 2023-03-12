@@ -1,12 +1,9 @@
 {
   "files": [],
   "include": [
-    "./src/**/*"
+    "./src/**/*",
   ],
   "references": [
-    {
-      "path": "./tsconfig.config.json"
-    },
     {
       "path": "./tsconfig.app.json"
     },
@@ -15,6 +12,9 @@
     }
   ],
   "compilerOptions": {
-    "allowJs": true
+    "allowJs": true,
+    "isolatedModules": true,
+    "strict": true,
+    "incremental": true
   },
 }
