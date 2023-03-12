@@ -17,23 +17,19 @@ export interface Props {
 const props = defineProps<Props>();
 const emits = defineEmits(["syncTodos"]);
 
-// mounted
 onMounted(() => {
   childTodos.value = props.todos;
   console.log(childTodos);
 });
 
-// watch
 watch(childTodos, (newChildTodos) => {
   emits("syncTodos", newChildTodos);
   console.log(newChildTodos);
 });
 
-// computed
 const filteredTodos = computed(() =>
   childTodos.value.filter((t: Todo) => t.status == "done")
 );
-
 </script>
 
 <template>

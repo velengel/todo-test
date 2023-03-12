@@ -1,6 +1,4 @@
 <script setup lang="ts">
-// let id = 0;
-// const statusArray = ["todo", "doing", "done"];
 import { computed, onMounted, watch } from "vue";
 import type { Todo } from "./common/types";
 import {
@@ -19,23 +17,19 @@ export interface Props {
 const props = defineProps<Props>();
 const emits = defineEmits(["syncTodos"]);
 
-// mounted
 onMounted(() => {
   childTodos.value = props.todos;
   console.log(childTodos);
 });
 
-// watch
 watch(childTodos, (newChildTodos) => {
   emits("syncTodos", newChildTodos);
   console.log(newChildTodos);
 });
 
-// computed
 const filteredTodos = computed(() =>
   childTodos.value.filter((t: Todo) => t.status == "doing")
 );
-
 </script>
 
 <template>

@@ -2,13 +2,9 @@
 import TodoList from "./TodoList.vue";
 import DoingList from "./DoingList.vue";
 import DoneList from "./DoneList.vue";
-
-//TODO: tsconfig.jsonのpathsに書けそう
 import type { Todo } from "./common/types";
-
 import { ref } from "vue";
 
-// data
 let id: number = 0;
 const todos = ref<Todo[]>([
   { id: id++, text: "Learn HTML", done: false, status: "todo" },
