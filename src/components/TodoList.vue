@@ -40,18 +40,17 @@ const addTodo = (): void => {
 </script>
 
 <template>
-  <p class="text-h2 text-center">Todo</p>
+  <p class="text-h2 text-center text-pink-lighten-1">Todo</p>
   <v-form @submit.prevent="addTodo">
     <v-text-field v-model="newTodo" label="input new todo item" />
     <v-btn block type="submit" color="purple">
       Add Todo
       <v-icon end icon="mdi-note-plus"></v-icon>
     </v-btn>
-
   </v-form>
   <v-list lines="one" class="my-4">
     <v-list-item v-for="todo in filteredTodos" :key="todo.id" class="my-4">
-      <v-card>
+      <v-card color="pink-darken-4">
         <v-toolbar color="rgba(0, 0, 0, 0)" theme="dark">
           <template v-slot:append>
             <v-btn icon="mdi-close" @click="removeTodo(todo)"></v-btn>
@@ -68,7 +67,7 @@ const addTodo = (): void => {
         </v-card-actions>
       </v-card>
     </v-list-item>
-</v-list>
+  </v-list>
 </template>
 
 <style>
