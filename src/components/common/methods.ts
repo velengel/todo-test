@@ -8,7 +8,7 @@ export const addTodo = (): void => {
     id: id++,
     text: newTodo.value,
     done: false,
-    statusNum: 0,
+    status: "todo",
   });
   newTodo.value = "";
 };
@@ -18,11 +18,27 @@ export const removeTodo = (todo: Todo): void => {
 };
 
 export const progressTodo = (todo: Todo): void => {
-  if (todo.statusNum < 2) todo.statusNum++;
-  else todo.statusNum = 2;
+  switch (todo.status) {
+    case "todo":
+      todo.status = "doing";
+      break;
+    case "doing":
+      todo.status = "done";
+      break;
+    case "done":
+      break;
+  }
 };
 
 export const regressTodo = (todo: Todo): void => {
-  if (todo.statusNum > 0) todo.statusNum--;
-  else todo.statusNum = 0;
+  switch (todo.status) {
+    case "todo":
+      break;
+    case "doing":
+      todo.status = "todo";
+      break;
+    case "done":
+      todo.status = "doing";
+      break;
+  }
 };

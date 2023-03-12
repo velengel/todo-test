@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, watch } from "vue";
 import type { Todo } from "./common/types";
-import { statusArray } from "./common/constants";
 import {
   addTodo,
   removeTodo,
@@ -17,13 +16,6 @@ export interface Props {
 const props = defineProps<Props>();
 const emits = defineEmits(["syncTodos"]);
 
-// interface Todo {
-//   id: number;
-//   text: string;
-//   done: boolean;
-//   statusNum: number;
-// }
-
 // mounted
 onMounted(() => {
   childTodos.value = props.todos;
@@ -38,33 +30,9 @@ watch(childTodos, (newChildTodos) => {
 
 // computed
 const filteredTodos = computed(() =>
-  childTodos.value.filter((t: Todo) => t.statusNum == 0)
+  childTodos.value.filter((t: Todo) => t.status == "todo")
 );
 
-// methods
-// const addTodo = (): void => {
-//   childTodos.value.push({
-//     id: id++,
-//     text: newTodo.value,
-//     done: false,
-//     statusNum: 0,
-//   });
-//   newTodo.value = "";
-// };
-
-// const removeTodo = (todo: Todo): void => {
-//   childTodos.value = childTodos.value.filter((t: Todo) => t !== todo);
-// };
-
-// const progressTodo = (todo: Todo): void => {
-//   if (todo.statusNum < 2) todo.statusNum++;
-//   else todo.statusNum = 2;
-// };
-
-// const regressTodo = (todo: Todo): void => {
-//   if (todo.statusNum > 0) todo.statusNum--;
-//   else todo.statusNum = 0;
-// };
 </script>
 
 <template>
@@ -82,7 +50,8 @@ const filteredTodos = computed(() =>
         >&lt;</v-btn
       >
       <span :class="{ done: todo.done }">{{ todo.text }}</span>
-      <span>&nbsp;|&nbsp;{{ statusArray[todo.statusNum] }}</span
+      <span :class="{ status: todo.status }"
+        >&nbsp;|&nbsp;{{ todo.status }}</span
       >&nbsp;
       <button @click="removeTodo(todo)">X</button>
       &nbsp;

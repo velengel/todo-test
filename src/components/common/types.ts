@@ -2,9 +2,7 @@ export interface Todo {
   id: number;
   text: string;
   done: boolean;
-  statusNum: number;
+  status: TodoStatus;
 }
 
-// export interface Props {
-//   todos: Todo[];
-// }
+export type TodoStatus = "todo" | "doing" | "done";
